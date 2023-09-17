@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class BallController : MonoBehaviour
 {
-    public Vector2 speed;
+    public float speed;
     private Rigidbody2D rig;
 
     // Start is called before the first frame update
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
-        rig.velocity = speed;
+        Launch();
 
     }
 
@@ -20,4 +20,12 @@ public class BallController : MonoBehaviour
     {
 
     }
+
+    private void Launch()
+    {
+        float x = Random.Range(0, 2) == 0 ? - 1 : 1;
+        float y = Random.Range(0, 2) == 0 ? - 1 : 1;
+        rig.velocity = new Vector2(speed * x, speed * y);
+    }
+
 }
