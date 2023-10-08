@@ -8,6 +8,10 @@ public class PaddleController : MonoBehaviour
     public KeyCode upKey;
     public KeyCode downKey;
     private Rigidbody2D rig;
+    private bool isOnPU;
+    private Vector2 tempScale;
+    private int tempSpeed;
+    private float durationCooldown = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -40,5 +44,39 @@ public class PaddleController : MonoBehaviour
     private void MoveObject(Vector2 movement)
     {
         rig.velocity = movement;
+    }
+
+    public void ChangeSize(float multiplier)
+    {
+        if (!isOnPU)
+        {
+            transform.localScale = new Vector3(tempScale.x, tempScale.y * multiplier);
+            isOnPU = true;
+        }
+    }
+    public void ChangeSpeed(int multiplier)
+    {
+        if (!isOnPU)
+        {
+            speed *= multiplier;
+            isOnPU = true;
+        }
+    }
+
+    private void PUDuration(float duration)
+    {
+        durationCooldown += Time.deltaTime;
+        if (durationCooldown >= duration)
+        {
+            isOnPU = false;
+            durationCooldown = 0;
+            RemovePUEffect();
+        }
+    }
+
+    private void RemovePUEffect()
+    {
+        transform.localScale = tempScale;
+        speed = tempSpeed;
     }
 }

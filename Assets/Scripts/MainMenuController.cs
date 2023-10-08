@@ -10,9 +10,14 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene("Game");
     }
 
-    public void OpenAuthor()
+    public void Credit()
     {
         Debug.Log("Created By HQ");
+        SceneManager.LoadScene("Credit");
+    }
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
     }
 
 }
